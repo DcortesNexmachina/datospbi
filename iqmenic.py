@@ -143,3 +143,17 @@ class IQmenic:
         else:
             logging.info("No se obtuvieron datos")
             return pd.DataFrame()
+
+        async def async_post(self, post_url, json_data):
+            """Realiza una petición POST asíncrona a la URL especificada con los datos JSON proporcionados, y si falla loggea el error."""
+            headers = {'Content-Type': 'application/json'}
+            try:
+                async with self.session.post(post_url, headers=headers, data=json.dumps(json_data)) as response:
+                    # Registra la respuesta en el log
+                    if response.status == 200:
+                        response_data = await response.json()
+                        logging.info(f"Respuesta exitosa en {post_url}: {response_data}")
+                    else:
+                        logging.error(f"Error en petición POST {post_url}: {response.status} - {response.text}")
+            except Exception as e:
+                logging.error(f"Error en petición POST {post_url}: {e}")
