@@ -1,12 +1,14 @@
-import requests
+import asyncio
 import pandas as pd
 import os
 import numpy as np
+import sys
 from dotenv import load_dotenv
 load_dotenv("/var/www/html/.env")
 bb = '/var/www/html/PolSMartin'
 bbdd = os.path.join(bb, 'sensores.xlsx')
 sensores = ['4135', '4136', '4137', '4138', '4139', '4141']
+
 if os.path.exists(bbdd):
     try:
         hojas = pd.read_excel(bbdd, sheet_name=None)
@@ -16,17 +18,21 @@ if os.path.exists(bbdd):
         hojas = {}
 else:
     hojas = {}
+
 datos = pd.concat(hojas.values(), ignore_index=True) if hojas else pd.DataFrame()
 
-import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from iqmenic import IQmenic
+
 apikey = os.getenv("POLSMARTIN")
+
 async def dataframe(apikey):
     async with IQmenic(apikey) as iqmenic:
         df = await iqmenic.get_all()
         return df
-datos1 = asyncio.run(dataframe(apikey)) 
+
+datos1 = asyncio.run(dataframe(apikey))
+
 if not datos.empty:
     datos = datos[datos['Sensor'].notna()]
     datos1 = pd.concat([datos, datos1], ignore_index=True).drop_duplicates()
