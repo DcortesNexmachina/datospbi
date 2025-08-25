@@ -2,6 +2,8 @@ import requests
 import pandas as pd
 import os
 import numpy as np
+from dotenv import load_dotenv
+load_dotenv("/var/www/html/.env")
 bb = '/var/www/html/PolSMartin'
 bbdd = os.path.join(bb, 'sensores.xlsx')
 sensores = ['4135', '4136', '4137', '4138', '4139', '4141']
