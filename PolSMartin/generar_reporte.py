@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import os
 import numpy as np
-bb = '/var/www/html/proyectos/PolSMartin'
+bb = '/var/www/html/PolSMartin'
 bbdd = os.path.join(bb, 'sensores.xlsx')
 sensores = ['4135', '4136', '4137', '4138', '4139', '4141']
 if os.path.exists(bbdd):
