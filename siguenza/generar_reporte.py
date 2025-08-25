@@ -26,6 +26,7 @@ async def dataframe(apikey):
 
 # Ejecutar el código asincrónicamente
 df = asyncio.run(dataframe(apikey))
+
 alertas = []
 baterias_bajas = []
 sobrevoltajes = []
@@ -190,3 +191,7 @@ html_content += f"""
 with open('/var/www/html/siguenza/informe_alertas.html', 'w', encoding='utf-8') as file:
     file.write(html_content)
 
+HISTORICO = ''
+df_csv = pd.read_csv(HISTORICO, sep=',')
+
+merge(df, df_csv).to_excel("")
