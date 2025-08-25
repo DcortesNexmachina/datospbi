@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de Cobertura Nexmachina</title>
+    <img src="https://nexmachina.com/wp-content/uploads/2020/11/nexmachina-logo.png" 
+         alt="Nexmachina Logo" 
+         style="display: block; margin: 10px auto; max-width: 300px;">
+    <link rel="icon" href="https://nexmachina.com/wp-content/uploads/2021/03/nexmachina-favicon.png" type="image/png">
+    <!-- Leaflet.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet.js JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        /* Estilo general */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            height: 70vh;
+        }
+
+        /* Estilo para el mapa */
+        #map {
+            flex: 1;
+            height: 100%;
+            width: 50%;
+        }
+
+        /* Estilo para el iframe */
+        #iframe-container {
+            flex: 1;
+            height: 100%;
+            width: 50%;
+            border: 1px solid #ccc;
+        }
+
+        #iframe-container iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Estilo para el formulario */
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label, input {
+            font-size: 16px;
+            margin: 8px 0;
+            width: 100%;
+        }
+
+        input[type="text"], input[type="hidden"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #excel-table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #excel-table th, #excel-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #excel-table tr:hover {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Estudio de Cobertura Nexmachina</h1>
+
+    <!-- Contenedor para el mapa y el iframe -->
+    <div id="container">
+        <div id="map"></div>
+        <div id="iframe-container">
+            <iframe src="/cobertura/mapa.html" title="Mapa de Calor"></iframe>
+        </div>
+    </div>
+
+    <br>
+    <!-- Formulario para ingresar datos -->
+    <form id="formulario" onsubmit="enviarFormulario(event)">
+        <label for="rssi">RSSI:</label>
+        <input type="text" id="rssi" name="rssi" required><br><br>
+
+        <label for="sf">SF:</label>
+        <input type="text" id="sf" name="sf" required><br><br>
+
+        <input type="hidden" id="lat" name="lat">
+        <input type="hidden" id="lon" name="lon">
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <br>
+    <!-- Botones adicionales -->
+    <button onclick="download()">Descargar Excel</button>
+    <button onclick="visualizarExcel()">Visualizar Excel</button>
+    <button onclick="mapa()">Descargar Mapa de Calor</button>
+
+    <!-- Contenedor para la tabla de Excel -->
+    <table id="excel-table"></table>
+
+    <script>
+        let lat = 0, lon = 0;
+        let marker;
+        let map;
+
+        // Inicializa el mapa
+        function initMap() {
+            map = L.map('map').setView([lat, lon], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            marker = L.marker([lat, lon]).addTo(map).bindPopup('Tu ubicación actual').openPopup();
+
+            map.on('click', function (e) {
+                lat = e.latlng.lat;
+                lon = e.latlng.lng;
+
+                marker.setLatLng([lat, lon]);
+
+                document.getElementById("lat").value = lat;
+                document.getElementById("lon").value = lon;
+            });
+        }
+
+        // Obtiene la ubicación del usuario
+        function obtenerUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    lat = position.coords.latitude;
+                    lon = position.coords.longitude;
+                    document.getElementById("lat").value = lat;
+                    document.getElementById("lon").value = lon;
+                    initMap();
+                });
+            } else {
+                alert('Geolocalización no soportada en este navegador.');
+            }
+        }
+
+        // Envía el formulario y ejecuta el script
+
+
+
+async function enviarFormulario(event) {
+    event.preventDefault();
+
+    const formulario = document.getElementById('formulario');
+    const formData = new FormData(formulario);
+
+    try {
+        // Enviar datos a registro.py
+        const registroResponse = await fetch("/cobertura/py/cgi-bin/registro.py", {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!registroResponse.ok) {
+            throw new Error(`Error en registro: ${registroResponse.statusText}`);
+        }
+
+        // Ejecutar mapear.py después de registro.py
+        const mapearResponse = await fetch("/cobertura/py/cgi-bin/mapear.py", {
+            method: 'POST'
+        });
+
+        if (!mapearResponse.ok) {
+            throw new Error(`Error en mapeo: ${mapearResponse.statusText}`);
+        }
+
+        const mapearData = await mapearResponse.json();
+        if (mapearData.error) {
+            throw new Error(`Error en mapeo: ${mapearData.error}`);
+        }
+
+        // Recargar el iframe después de generar el mapa
+        document.querySelector('#iframe-container iframe').src = '/cobertura/mapa_sin_leyenda.html';
+
+        // Limpiar las cajas del formulario
+        formulario.reset();
+
+    } catch (error) {
+        console.error('Error al procesar la solicitud:', error);
+        alert(`Error al procesar la solicitud: ${error.message}`);
+    }
+}
+
+
+        // Inicializar la ubicación al cargar la página
+        window.onload = obtenerUbicacion;
+
+        // Funciones adicionales
+        function download() {
+            window.location.href = 'https://datospbi.iqmenic.com/cobertura/muestreo_cobertura.xlsx';
+        }
+
+        function visualizarExcel() {
+            window.location.href = "/cobertura/visualizar_excel.html";
+        }
+
+  function mapa() {
+            window.location.href = "/cobertura/mapa.html";
+        }
+    </script>
+</body>
+</html>

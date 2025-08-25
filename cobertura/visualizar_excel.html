@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Excel</title>
+    <img src="https://nexmachina.com/wp-content/uploads/2020/11/nexmachina-logo.png" 
+         alt="Nexmachina Logo" 
+         style="display: block; margin: 10px auto; max-width: 300px;">
+    <link rel="icon" href="https://nexmachina.com/wp-content/uploads/2021/03/nexmachina-favicon.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            margin: 10px auto;
+            display: block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Visualización de Excel</h1>
+    <button onclick="volver()">Volver</button>
+    <table id="excel-table">
+        <thead>
+            <tr id="table-headers"></tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+
+
+<script>
+    async function cargarExcel() {
+        try {
+            const response = await fetch("/cobertura/py/cgi-bin/leer_excel.py");
+
+            if (!response.ok) {
+                throw new Error(`Error en la respuesta del servidor: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+
+            if (data.error) {
+                alert(`Error: ${data.error}`);
+                return;
+            }
+
+            const headers = document.getElementById("table-headers");
+            const body = document.getElementById("table-body");
+
+            headers.innerHTML = "";
+            body.innerHTML = "";
+
+            const indexTh = document.createElement("th");
+            indexTh.textContent = "Index";
+            headers.appendChild(indexTh);
+
+            Object.keys(data[0]).forEach((key) => {
+                const th = document.createElement("th");
+                th.textContent = key;
+                headers.appendChild(th);
+            });
+
+            const actionTh = document.createElement("th");
+            actionTh.textContent = "Acción";
+            headers.appendChild(actionTh);
+
+            data.forEach((row, index) => {
+                const tr = document.createElement("tr");
+
+                const indexTd = document.createElement("td");
+                indexTd.textContent = index;
+                tr.appendChild(indexTd);
+
+                Object.values(row).forEach((value) => {
+                    const td = document.createElement("td");
+                    td.textContent = value;
+                    tr.appendChild(td);
+                });
+
+                const actionTd = document.createElement("td");
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Eliminar";
+                deleteButton.onclick = () => eliminarFila(index);
+                actionTd.appendChild(deleteButton);
+                tr.appendChild(actionTd);
+
+                body.appendChild(tr);
+            });
+        } catch (error) {
+            alert("Hubo un problema al cargar el Excel: " + error.message);
+            console.error(error);
+        }
+    }
+
+    async function eliminarFila(index) {
+        if (confirm(`¿Estás seguro de eliminar la fila con índice ${index}?`)) {
+            try {
+                const response = await fetch(`/cobertura/py/cgi-bin/eliminar_fila.py?index=${index}`);
+
+                if (!response.ok) {
+                    throw new Error(`Error en la respuesta del servidor: ${response.status} ${response.statusText}`);
+                }
+
+                const result = await response.json();
+
+                if (result.error) {
+                    alert(`Error: ${result.error}`);
+                    return;
+                }
+
+                alert("Fila eliminada correctamente.");
+
+                await cargarExcel(); // Recargar la tabla
+                await ejecutarMapeo(); // Ejecutar mapeo después de recargar
+            } catch (error) {
+                alert("Hubo un problema al eliminar la fila: " + error.message);
+                console.error(error);
+            }
+        }
+    }
+
+    async function ejecutarMapeo() {
+        try {
+            const response = await fetch("/cobertura/py/cgi-bin/mapear.py", {
+                method: 'POST'
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error en mapeo: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+
+            if (data.error) {
+                throw new Error(`Error en mapeo: ${data.error}`);
+            }
+
+            alert("Proceso de mapeo ejecutado correctamente.");
+        } catch (error) {
+            alert("Hubo un problema al ejecutar el mapeo: " + error.message);
+            console.error(error);
+        }
+    }
+
+    function volver() {
+        window.location.href = "/cobertura/index.html";
+    }
+
+    // Cargar datos al cargar la página
+    window.onload = cargarExcel;
+    </script>
+</body>
+</html>

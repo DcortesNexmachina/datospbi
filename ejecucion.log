@@ -1,0 +1,378 @@
+Entrando en el directorio: /var/www/html/proyectos/PolSMartin
+Ejecutando: /var/www/html/proyectos/PolSMartin/generar_reporte.py
+/var/www/html/proyectos/PolSMartin/generar_reporte.py:62: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  coches['fecha'] = pd.to_datetime(coches['fecha'])
+/var/www/html/proyectos/PolSMartin/generar_reporte.py:80: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  if len(df_merged) == (df_merged['valorrecibido'] == df_merged['valorcalculado']).value_counts()[0]:
+Traceback (most recent call last):
+  File "/var/www/html/proyectos/PolSMartin/generar_reporte.py", line 80, in <module>
+    if len(df_merged) == (df_merged['valorrecibido'] == df_merged['valorcalculado']).value_counts()[0]:
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 1118, in __getitem__
+    return self._values[key]
+IndexError: index 0 is out of bounds for axis 0 with size 0
+Error al ejecutar /var/www/html/proyectos/PolSMartin/generar_reporte.py
+Entrando en el directorio: /var/www/html/proyectos/aeroferr
+Entrando en el directorio: /var/www/html/proyectos/arganda
+Ejecutando: /var/www/html/proyectos/arganda/generar_reporte.py
+Traceback (most recent call last):
+  File "/var/www/html/proyectos/arganda/generar_reporte.py", line 111, in <module>
+    df_historico = historico()
+  File "/var/www/html/proyectos/arganda/generar_reporte.py", line 54, in historico
+    df_nex = pd.read_csv(nombre_archivo, usecols=['Propiedad', 'valorrecibido', 'fecha'])
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 1898, in _make_engine
+    return mapping[engine](f, **self.options)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/c_parser_wrapper.py", line 140, in __init__
+    self._validate_usecols_names(usecols, self.orig_names)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/base_parser.py", line 979, in _validate_usecols_names
+    raise ValueError(
+ValueError: Usecols do not match columns, columns expected but not found: ['valorrecibido']
+Error al ejecutar /var/www/html/proyectos/arganda/generar_reporte.py
+Entrando en el directorio: /var/www/html/proyectos/caminomorisco
+Ejecutando: /var/www/html/proyectos/caminomorisco/generar_reporte.py
+/var/www/html/proyectos/caminomorisco/generar_reporte.py:76: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  if len(df_merged) == (df_merged['valorrecibido'] == df_merged['valorcalculado']).value_counts()[0]:
+Traceback (most recent call last):
+  File "/var/www/html/proyectos/caminomorisco/generar_reporte.py", line 185, in <module>
+    combined_data['fecha'] = combined_data['fecha'].drop_duplicates()
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 4311, in __setitem__
+    self._set_item(key, value)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 4524, in _set_item
+    value, refs = self._sanitize_column(value)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 5263, in _sanitize_column
+    return _reindex_for_setitem(value, self.index)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 12692, in _reindex_for_setitem
+    raise err
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 12687, in _reindex_for_setitem
+    reindexed_value = value.reindex(index)._values
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 5153, in reindex
+    return super().reindex(
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/generic.py", line 5610, in reindex
+    return self._reindex_axes(
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/generic.py", line 5633, in _reindex_axes
+    new_index, indexer = ax.reindex(
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/indexes/base.py", line 4429, in reindex
+    raise ValueError("cannot reindex on an axis with duplicate labels")
+ValueError: cannot reindex on an axis with duplicate labels
+Error al ejecutar /var/www/html/proyectos/caminomorisco/generar_reporte.py
+Entrando en el directorio: /var/www/html/proyectos/ccastilla
+Ejecutando: /var/www/html/proyectos/ccastilla/falsos.py
+Generando ubicaciones:   0%|          | 0/300 [00:00<?, ?it/s]Generando ubicaciones: 100%|██████████| 300/300 [00:00<00:00, 5189.62it/s]
+Número de contadores únicos: 300
+Ejecutando: /var/www/html/proyectos/ccastilla/falsos1.py
+Iniciando generación de datos...
+Generando ubicaciones:   0%|          | 0/15 [00:00<?, ?it/s]Generando ubicaciones: 100%|██████████| 15/15 [00:00<00:00, 6282.66it/s]
+Generando lecturas consistentes...
+Creando DataFrame...
+
+Archivo CSV generado exitosamente: 'datos_alina_agua_todos_los_dias_optimizado.csv'
+Tamaño del dataset: 215,010 registros
+Periodo: 2024-01-01 00:00:00 a 2025-08-20 05:00:00
+Número de contadores únicos: 15
+Entrando en el directorio: /var/www/html/proyectos/cecobi
+Ejecutando: /var/www/html/proyectos/cecobi/generar_reporte.py
+2025-08-20 05:15:08,684 - ERROR - Error descargando el archivo EXPORT_2024-12-29: 404 Client Error: Not Found for url: https://iqtrafficbackend.iqmenic.com/exporta/EXPORT_2024-12-29.xlsx
+2025-08-20 05:15:08,685 - WARNING - Archivo EXPORT_2024-12-29 no disponible.
+2025-08-20 05:15:08,746 - ERROR - Error descargando el archivo EXPORT_2024-12-28: 404 Client Error: Not Found for url: https://iqtrafficbackend.iqmenic.com/exporta/EXPORT_2024-12-28.xlsx
+2025-08-20 05:15:08,746 - WARNING - Archivo EXPORT_2024-12-28 no disponible.
+2025-08-20 05:15:08,808 - ERROR - Error descargando el archivo EXPORT_2024-12-27: 404 Client Error: Not Found for url: https://iqtrafficbackend.iqmenic.com/exporta/EXPORT_2024-12-27.xlsx
+2025-08-20 05:15:08,808 - WARNING - Archivo EXPORT_2024-12-27 no disponible.
+2025-08-20 05:15:13,170 - ERROR - Error descargando el archivo EXPORT_2024-11-12: 404 Client Error: Not Found for url: https://iqtrafficbackend.iqmenic.com/exporta/EXPORT_2024-11-12.xlsx
+2025-08-20 05:15:13,170 - WARNING - Archivo EXPORT_2024-11-12 no disponible.
+2025-08-20 05:15:13,235 - ERROR - Error descargando el archivo EXPORT_2024-11-11: 404 Client Error: Not Found for url: https://iqtrafficbackend.iqmenic.com/exporta/EXPORT_2024-11-11.xlsx
+2025-08-20 05:15:13,235 - WARNING - Archivo EXPORT_2024-11-11 no disponible.
+2025-08-20 05:17:04,800 - INFO - Base de datos actualizada correctamente.
+Ejecutando: /var/www/html/proyectos/cecobi/kopinet.py
+/var/www/html/proyectos/cecobi/kopinet.py:64: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  result['comercio'] = 'Kopinet'
+/var/www/html/proyectos/cecobi/kopinet.py:65: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  result['comercioID'] = 16010101
+Entrando en el directorio: /var/www/html/proyectos/cobertura
+Entrando en el directorio: /var/www/html/proyectos/cobertura_test
+Entrando en el directorio: /var/www/html/proyectos/edificoalbia
+Entrando en el directorio: /var/www/html/proyectos/elite_agua
+Ejecutando: /var/www/html/proyectos/elite_agua/generar_reporte.py
+Generando ubicaciones:   0%|          | 0/60 [00:00<?, ?it/s]Generando ubicaciones: 100%|██████████| 60/60 [00:00<00:00, 16909.11it/s]
+
+Archivo CSV generado exitosamente: 'elite_agua_ficticios.csv'
+Tamaño del dataset: 860,040 registros
+Periodo: 2024-01-01 00:00:00 a 2025-08-20 05:00:00
+Número de contadores únicos: 60
+Entrando en el directorio: /var/www/html/proyectos/estadistica
+Entrando en el directorio: /var/www/html/proyectos/gitlab
+Entrando en el directorio: /var/www/html/proyectos/gws
+Ejecutando: /var/www/html/proyectos/gws/cogedatos.py
+Error: El archivo de entorno ./.env no existe.
+Error al ejecutar /var/www/html/proyectos/gws/cogedatos.py
+Entrando en el directorio: /var/www/html/proyectos/openms
+Ejecutando: /var/www/html/proyectos/openms/generar_reporte.py
+{"id": "1569479826652253", "Fecha": "2024-11-05T12:10:53+00:00", "Propiedades": [{"Temperatura": "21.7", "pH": "8.3", "ORP": "185", "Conductividad": "1266", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T13:23:12+00:00", "Propiedades": [{"Temperatura": "21.8", "pH": "8.3", "ORP": "185", "Conductividad": "1266", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T14:35:29+00:00", "Propiedades": [{"Temperatura": "21.9", "pH": "8.3", "ORP": "184", "Conductividad": "1270", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T15:47:48+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.3", "ORP": "182", "Conductividad": "1267", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T17:00:05+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.3", "ORP": "182", "Conductividad": "1270", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T18:12:25+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.3", "ORP": "182", "Conductividad": "1270", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T19:24:43+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.4", "ORP": "181", "Conductividad": "1277", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T20:37:03+00:00", "Propiedades": [{"Temperatura": "22.1", "pH": "8.4", "ORP": "180", "Conductividad": "1275", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T21:49:23+00:00", "Propiedades": [{"Temperatura": "22.1", "pH": "8.3", "ORP": "181", "Conductividad": "1274", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-05T23:01:41+00:00", "Propiedades": [{"Temperatura": "22.1", "pH": "8.3", "ORP": "180", "Conductividad": "1272", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T00:13:58+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.3", "ORP": "180", "Conductividad": "1270", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T01:26:17+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.3", "ORP": "180", "Conductividad": "1270", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T02:38:33+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.3", "ORP": "179", "Conductividad": "1270", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T03:50:54+00:00", "Propiedades": [{"Temperatura": "21.9", "pH": "8.3", "ORP": "180", "Conductividad": "1267", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T05:03:12+00:00", "Propiedades": [{"Temperatura": "21.8", "pH": "8.3", "ORP": "180", "Conductividad": "1266", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T06:15:32+00:00", "Propiedades": [{"Temperatura": "21.7", "pH": "8.3", "ORP": "179", "Conductividad": "1263", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T07:27:47+00:00", "Propiedades": [{"Temperatura": "21.7", "pH": "8.3", "ORP": "179", "Conductividad": "1263", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T08:40:08+00:00", "Propiedades": [{"Temperatura": "21.6", "pH": "8.3", "ORP": "179", "Conductividad": "1261", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T09:52:26+00:00", "Propiedades": [{"Temperatura": "21.6", "pH": "8.3", "ORP": "179", "Conductividad": "1263", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T11:04:46+00:00", "Propiedades": [{"Temperatura": "21.6", "pH": "8.3", "ORP": "178", "Conductividad": "1266", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T12:17:01+00:00", "Propiedades": [{"Temperatura": "21.7", "pH": "8.3", "ORP": "179", "Conductividad": "1269", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T13:29:21+00:00", "Propiedades": [{"Temperatura": "21.9", "pH": "8.4", "ORP": "178", "Conductividad": "1280", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T14:41:42+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.4", "ORP": "176", "Conductividad": "1287", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "3757454504177307", "Fecha": "2024-11-06T14:48:17+00:00", "Propiedades": [{"Temperatura": "21.9", "pH": "7.6", "ORP": "354", "Conductividad": "1085", "Alerta": "False", "Latitud": "39.91815542968301", "Longitud": "-0.4389583538197475"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_AlgimiaDeA: nueva medici0n
+{"id": "3757454504177307", "Fecha": "2024-11-06T14:54:01+00:00", "Propiedades": [{"Temperatura": "22.1", "pH": "7.6", "ORP": "374", "Conductividad": "1127", "Alerta": "False", "Latitud": "39.91815542968301", "Longitud": "-0.4389583538197475"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_AlgimiaDeA: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T15:53:59+00:00", "Propiedades": [{"Temperatura": "22", "pH": "8.4", "ORP": "176", "Conductividad": "1288", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "3757454504177307", "Fecha": "2024-11-06T15:59:33+00:00", "Propiedades": [{"Temperatura": "22", "pH": "7.7", "ORP": "387", "Conductividad": "1127", "Alerta": "False", "Latitud": "39.91815542968301", "Longitud": "-0.4389583538197475"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_AlgimiaDeA: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T16:15:55+00:00", "Propiedades": [{"Temperatura": "21.9", "pH": "8.4", "ORP": "176", "Conductividad": "1275", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "1569479826652253", "Fecha": "2024-11-06T16:58:55+00:00", "Propiedades": [{"Temperatura": "22.1", "pH": "7.7", "ORP": "307", "Conductividad": "1256", "Alerta": "False", "Latitud": "39.83325708823207", "Longitud": "-0.367882031354426"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Azuebar: nueva medici0n
+{"id": "7414988029079282", "Fecha": "2024-12-17T10:44:16+00:00", "Propiedades": [{"Temperatura": "14.7", "pH": "7.6", "ORP": "656", "Conductividad": "1827", "Alerta": "False", "Latitud": "39.86949545817394", "Longitud": "-0.4115507000202743"}]}
+Correos eliminados exitosamente con el asunto: Blueconnect_Almedijar: nueva medici0n
+{"id": "5975090540842959", "Fecha": "2025-01-20T15:36:33+00:00", "Propiedades": [{"Temperatura": "30.2", "pH": "8", "ORP": "680", "Conductividad": "1014", "Alerta": "False", "Latitud": "39.91498920858182", "Longitud": "-0.5763652584037186"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_Jerica: nueva medici0n
+{"id": "5975090540842959", "Fecha": "2025-01-20T15:47:03+00:00", "Propiedades": [{"Temperatura": "30.2", "pH": "8", "ORP": "681", "Conductividad": "1014", "Alerta": "False", "Latitud": "39.91498920858182", "Longitud": "-0.5763652584037186"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_Jerica: nueva medici0n
+{"id": "5975090540842959", "Fecha": "2025-01-21T09:23:20+00:00", "Propiedades": [{"Temperatura": "31.3", "pH": "8.1", "ORP": "750", "Conductividad": "1037", "Alerta": "False", "Latitud": "39.91498920858182", "Longitud": "-0.5763652584037186"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_Jerica: nueva medici0n
+{"id": "5975090540842959", "Fecha": "2025-01-24T14:39:44+00:00", "Propiedades": [{"Temperatura": "30.6", "pH": "8", "ORP": "752", "Conductividad": "1009", "Alerta": "False", "Latitud": "39.91498920858182", "Longitud": "-0.5763652584037186"}]}
+Correos eliminados exitosamente con el asunto: BlueConnect_Jerica: nueva medici0n
+Ejecutando: /var/www/html/proyectos/openms/ubicaciones.py
+Content-type: text/html
+
+<!--: spam
+Content-Type: text/html
+
+<body bgcolor="#f0f0f8"><font color="#f0f0f8" size="-5"> -->
+<body bgcolor="#f0f0f8"><font color="#f0f0f8" size="-5"> --> -->
+</font> </font> </font> </script> </object> </blockquote> </pre>
+</table> </table> </table> </table> </table> </font> </font> </font><body bgcolor="#f0f0f8">
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#6622aa">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>KeyError</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial">Python 3.10.12: /usr/bin/python3<br>Wed Aug 20 05:46:24 2025</font></td></tr></table>
+    
+<p>A problem occurred in a Python script.  Here is the sequence of
+function calls leading up to the error, in the order they occurred.</p>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///var/www/html/proyectos/openms/ubicaciones.py">/var/www/html/proyectos/openms/ubicaciones.py</a> in <strong>&lt;module&gt;</strong></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;54</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("&lt;p&gt;Los&nbsp;datos&nbsp;han&nbsp;sido&nbsp;procesados&nbsp;correctamente&nbsp;y&nbsp;guardados.&lt;/p&gt;")<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;55</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;56</small>&nbsp;#&nbsp;Llamar&nbsp;la&nbsp;función&nbsp;principal<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;57</small>&nbsp;if&nbsp;__name__&nbsp;==&nbsp;"__main__":<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;&nbsp;58</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main()<br>
+</tt></td></tr>
+<tr><td><small><font color="#909090"><strong>main</strong>&nbsp;= &lt;function main&gt;</font></small></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///var/www/html/proyectos/openms/ubicaciones.py">/var/www/html/proyectos/openms/ubicaciones.py</a> in <strong>main</strong>()</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;47</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;48</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Si&nbsp;se&nbsp;trata&nbsp;de&nbsp;un&nbsp;envío&nbsp;de&nbsp;formulario,&nbsp;procesar&nbsp;los&nbsp;datos<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;&nbsp;49</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;os.environ["REQUEST_METHOD"]&nbsp;==&nbsp;"POST":<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;50</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process_form()<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;51</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("&lt;h2&gt;&nbsp;¡Formulario&nbsp;enviado&nbsp;exitosamente!&lt;/h2&gt;")<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><em>global</em> <strong>os</strong>&nbsp;= &lt;module 'os' from '/usr/lib/python3.10/os.py'&gt;, os.<strong>environ</strong>&nbsp;= environ({'SHELL': '/bin/sh', 'PWD': '/root', 'LO...local/games:/snap/bin', '_': '/usr/bin/python3'})</font></small></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///usr/lib/python3.10/os.py">/usr/lib/python3.10/os.py</a> in <strong>__getitem__</strong>(self=environ({'SHELL': '/bin/sh', 'PWD': '/root', 'LO...local/games:/snap/bin', '_': '/usr/bin/python3'}), key='REQUEST_METHOD')</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;678</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except&nbsp;KeyError:<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;679</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;raise&nbsp;KeyError&nbsp;with&nbsp;the&nbsp;original&nbsp;key&nbsp;value<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;680</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise&nbsp;KeyError(key)&nbsp;from&nbsp;None<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;681</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;self.decodevalue(value)<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;682</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><em>builtin</em> <strong>KeyError</strong>&nbsp;= &lt;class 'KeyError'&gt;, <strong>key</strong>&nbsp;= 'REQUEST_METHOD'</font></small></td></tr></table><p><strong>KeyError</strong>: 'REQUEST_METHOD'
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>args&nbsp;=
+('REQUEST_METHOD',)
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>with_traceback&nbsp;=
+&lt;built-in method with_traceback of KeyError object&gt;
+
+
+<!-- The above is a description of an error in a Python program, formatted
+     for a web browser because the 'cgitb' module was enabled.  In case you
+     are not reading this in a web browser, here is the original traceback:
+
+Traceback (most recent call last):
+  File "/var/www/html/proyectos/openms/ubicaciones.py", line 58, in &lt;module&gt;
+    main()
+  File "/var/www/html/proyectos/openms/ubicaciones.py", line 49, in main
+    if os.environ["REQUEST_METHOD"] == "POST":
+  File "/usr/lib/python3.10/os.py", line 680, in __getitem__
+    raise KeyError(key) from None
+KeyError: 'REQUEST_METHOD'
+
+-->
+
+Error al ejecutar /var/www/html/proyectos/openms/ubicaciones.py
+Entrando en el directorio: /var/www/html/proyectos/pintuberri
+Ejecutando: /var/www/html/proyectos/pintuberri/test.py
+Entrando en el directorio: /var/www/html/proyectos/siguenza
+Ejecutando: /var/www/html/proyectos/siguenza/generar_reporte.py
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/indexes/base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'valorrecibido'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/www/html/proyectos/siguenza/generar_reporte.py", line 61, in <module>
+    percentil5 = np.percentile(df[df['Propiedad'] == 'Voltaje']['valorrecibido'], 5)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: 'valorrecibido'
+Error al ejecutar /var/www/html/proyectos/siguenza/generar_reporte.py
+Entrando en el directorio: /var/www/html/proyectos/solarcycle
+Ejecutando: /var/www/html/proyectos/solarcycle/generar_reporte.py
+Entrando en el directorio: /var/www/html/proyectos/test
+Ejecutando: /var/www/html/proyectos/test/actual.py
+Content-Type: text/html
+
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Datos Recibidos</title>
+        <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            pre { background: #f4f4f4; padding: 10px; border-radius: 5px; }
+        </style>
+    </head>
+    <body>
+        <h2>✅ Datos Recibidos</h2>
+        
+        
+        
+        
+        <br>
+        <a href="/test/controlesv1.html">🔙 Volver</a>
+    </body>
+    </html>
+    
+Ejecutando: /var/www/html/proyectos/test/actualizar_datos.py
+Ejecutando: /var/www/html/proyectos/test/api.py
+Content-Type: application/json
+Status: 200 OK
+
+{"status": "success", "timestamp": "2025-08-20T05:47:51.357745", "data": {"trabajadores": [{"id": 1, "estado": false}, {"id": 2, "estado": false}, {"id": 3, "estado": false}, {"id": 4, "estado": false}, {"id": 5, "estado": false}, {"id": 6, "estado": false}, {"id": 7, "estado": false}, {"id": 8, "estado": false}, {"id": 9, "estado": false}, {"id": 10, "estado": false}, {"id": 11, "estado": false}, {"id": 12, "estado": false}, {"id": 13, "estado": false}, {"id": 14, "estado": false}, {"id": 15, "estado": false}, {"id": 16, "estado": false}, {"id": 17, "estado": false}, {"id": 18, "estado": false}, {"id": 19, "estado": false}, {"id": 20, "estado": false}, {"id": 21, "estado": false}, {"id": 22, "estado": false}, {"id": 23, "estado": false}, {"id": 24, "estado": false}, {"id": 25, "estado": false}, {"id": 26, "estado": false}, {"id": 27, "estado": false}, {"id": 28, "estado": false}, {"id": 29, "estado": false}, {"id": 30, "estado": false}], "banos": [{"id": 1, "estado": true}, {"id": 2, "estado": true}, {"id": 3, "estado": true}, {"id": 4, "estado": false}, {"id": 5, "estado": true}, {"id": 6, "estado": false}, {"id": 7, "estado": true}, {"id": 8, "estado": false}, {"id": 9, "estado": true}, {"id": 10, "estado": true}]}}
+Ejecutando: /var/www/html/proyectos/test/excel.py
+Archivo Excel creado con éxito.
+Ejecutando: /var/www/html/proyectos/test/incluir_controles.py
+Error: [Errno 2] No such file or directory: 'controles.html'
+Ejecutando: /var/www/html/proyectos/test/map.py
+Ejecutando: /var/www/html/proyectos/test/mapear.py
+Content-Type: text/html
+
+Advertencia: No hay trabajadores activos. Usando 1 trabajador por defecto.
+Advertencia: No hay baños activos. Usando 1 baño por defecto.
+Mapa generado correctamente y guardado como 'mapa_rutas.html'
+Ejecutando: /var/www/html/proyectos/test/ver.py
+0     43.268769
+1     43.276405
+2     43.273366
+3     43.273366
+4     43.276962
+5     43.273366
+6     43.273366
+7     43.268769
+8     43.274715
+9     43.268769
+10    43.273366
+11    43.273366
+12    43.271493
+13    43.277307
+14    43.276962
+15    43.276962
+16    43.276962
+17    43.278787
+18    43.274648
+19    43.276405
+20    43.268769
+21    43.276405
+22    43.274648
+23    43.274648
+24    43.274715
+25    43.274648
+26    43.273366
+27    43.278787
+28    43.276962
+29    43.276962
+Name: latitud, dtype: object
+Entrando en el directorio: /var/www/html/proyectos/trufas
+Ejecutando: /var/www/html/proyectos/trufas/generar_reporte.py
+Entrando en el directorio: /var/www/html/proyectos/zabbix

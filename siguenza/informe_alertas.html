@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Estado de Sensores</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2, h3 { color: #333; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <h1>Informe de Estado de Sensores</h1>
+    <h2>Sensor: Conteo de Personas</h2>
+
+    <h3>Propiedad: RSSI</h3>
+    <table>
+        <tr><th>Campo</th><th>Descripción</th></tr>
+        <tr><td>Fecha</td><td>2025-08-04</td></tr>
+        <tr><td>Ubicación</td><td>Sin datos</td></tr>
+        <tr><td>Último valor recibido</td><td>-73.0</td></tr>
+        <tr><td>Estado</td><td>Sin datos de voltaje</td></tr>
+        <tr><td>Nivel de Batería</td><td>100</td></tr>
+        <tr><td>Acción recomendada</td><td><strong>Ninguna acción requerida.</strong></td></tr>
+    </table>
+    
+    <h3>Propiedad: Voltaje</h3>
+    <table>
+        <tr><th>Campo</th><th>Descripción</th></tr>
+        <tr><td>Fecha</td><td>2025-08-04</td></tr>
+        <tr><td>Ubicación</td><td>Sin datos</td></tr>
+        <tr><td>Último valor recibido</td><td>0.0</td></tr>
+        <tr><td>Estado</td><td>Correcto</td></tr>
+        <tr><td>Nivel de Batería</td><td>100</td></tr>
+        <tr><td>Acción recomendada</td><td><strong>Ninguna acción requerida.</strong></td></tr>
+    </table>
+    
+<h3>Propiedad: Alertas</h3>
+<table>
+    <tr><th>Campo</th><th>Descripción</th></tr>
+    <tr><td>Alerta activada</td><td>0.0</td></tr>
+    <tr><td>Estado de alerta</td><td>Correcto</td></tr>
+    <tr><td>Acción recomendada</td><td><strong>Ninguna acción requerida.</strong></td></tr>
+</table>
+
+<h2>Gráficos</h2>
+<h3>Calidad de Señal RSSI</h3>
+<img src="rssi_quality_pie_chart.png" alt="Calidad de Señal RSSI">
+<h3>Histograma de Voltaje</h3>
+<img src="voltaje_histogram.png" alt="Histograma de Voltaje">
+<h3>Frecuencia de Alertas</h3>
+<img src="alertas_pie_chart.png" alt="Frecuencia de Alertas">
+</body>
+</html>

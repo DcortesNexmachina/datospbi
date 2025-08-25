@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Ubicación</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map { height: 400px; width: 100%; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h2 { color: #333; }
+        .message { color: green; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <h2>Formulario de Ubicación</h2>
+    <form id="location-form" action="ubicaciones.py" method="POST">
+        <label for="elemento">Seleccionar un Municipio:</label>
+        <select id="elemento" name="elemento" required>
+         <option value="AlgimiaDeA">AlgimiaDeA</option>
+         <option value="Almedijar">Almedijar</option>
+         <option value="Altura">Altura</option>
+         <option value="Azuebar">Azuébar</option>
+         <option value="Barracas">Barracas</option>
+         <option value="Bejis">Bejis</option>
+         <option value="Benafer">Benafer</option>
+         <option value="Castellnovo">Castellnovo</option>
+         <option value="Caudiel">Caudiel</option>
+         <option value="Cella">Cella</option>
+         <option value="Chovar">Chóvar</option>
+         <option value="Chulilla">Chulilla</option>
+         <option value="Covaleda">Covaleda</option>
+         <option value="Cuevas de San Marcos">Cuevas de San Marcos</option>
+         <option value="ElToro">El Toro</option>
+         <option value="Estubeny">Estubeny</option>
+         <option value="Fanzara">Fanzara</option>
+         <option value="Finestrat">Finestrat</option>
+         <option value="FuenteLaReina">Fuente La Reina</option>
+         <option value="Gaibiel">Gaibiel</option>
+         <option value="Gandía">Gandía</option>
+         <option value="Geldo">Geldo</option>
+         <option value="Higueras">Higueras</option>
+         <option value="Jalance">Jalance</option>
+         <option value="Jerica">Jérica</option>
+         <option value="LabBiozeo">Lab Biozeo</option>
+         <option value="Llíria">Llíria</option>
+         <option value="Matet">Matet</option>
+         <option value="Navajas">Navajas</option>
+         <option value="Olocau">Olocau</option>
+         <option value="Pavias">Pavías</option>
+         <option value="PinaMontalgrao">Pina de Montalgrao</option>
+         <option value="Sacañet">Sacañet</option>
+         <option value="Segorbe">Segorbe</option>
+         <option value="Sella">Sella</option>
+         <option value="Soneja">Soneja</option>
+         <option value="Sot de Chera">Sot de Chera</option>
+         <option value="SotdeFerrer">Sot de Ferrer</option>
+         <option value="Tavernes de la Valldigna">Tavernes de la Valldigna</option>
+         <option value="Teresa">Teresa</option> 
+         <option value="Torás">Torás</option>
+         <option value="Torrente">Torrente</option>
+         <option value="Utiel">Utiel</option>
+         <option value="Vall D'Almonacid">Vall D'Almonacid</option>
+         <option value="Vallada">Vallada</option>
+         <option value="VillanuevadeViver">Villanueva de Viver</option>
+         <option value="Vinaròs">Vinaròs</option>
+         <option value="Viverz">Viverz</option>
+        </select>
+        <br><br>
+        
+        <label for="latitud">Latitud:</label>
+        <input type="text" id="latitud" name="latitud" placeholder="Latitud" pattern="^-?[0-9]+(\.[0-9]+)?$" title="Utiliza punto en lugar de coma" required>
+        <br><br>
+
+        <label for="longitud">Longitud:</label>
+        <input type="text" id="longitud" name="longitud" placeholder="Longitud" pattern="^-?[0-9]+(\.[0-9]+)?$" title="Utiliza punto en lugar de coma" required>
+        <br><br>
+
+        <div id="map"></div>
+        <br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div class="message" id="message">¡Enviado!</div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Crear el mapa
+        var map = L.map('map').setView([38.01625754045314, -3.3721887832742503], 13); // Vista inicial centrada en Nueva York
+
+        // Agregar capa de mapa (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Crear un marcador
+        var marker = L.marker([38.01625754045314, -3.3721887832742503], {draggable: true}).addTo(map);
+
+        // Establecer las coordenadas iniciales en los campos ocultos
+        document.getElementById('latitud').value = marker.getLatLng().lat;
+        document.getElementById('longitud').value = marker.getLatLng().lng;
+
+        // Evento de clic en el mapa para mover el marcador
+        map.on('click', function(e) {
+            var lat = e.latlng.lat;
+            var lng = e.latlng.lng;
+
+            // Mover el marcador a la posición del clic
+            marker.setLatLng([lat, lng]);
+
+            // Actualizar los campos con las nuevas coordenadas
+            document.getElementById('latitud').value = lat;
+            document.getElementById('longitud').value = lng;
+        });
+
+        // Mostrar el mensaje después de enviar el formulario
+        var form = document.getElementById('location-form');
+        form.addEventListener('submit', function(event) {
+            // Mostrar el mensaje de éxito
+            document.getElementById('message').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
