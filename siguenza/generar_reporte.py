@@ -191,7 +191,10 @@ html_content += f"""
 with open('/var/www/html/siguenza/informe_alertas.html', 'w', encoding='utf-8') as file:
     file.write(html_content)
 
-HISTORICO = ''
+HISTORICO = 'datos_historicos.csv'
 df_csv = pd.read_csv(HISTORICO, sep=',')
-
-merge(df, df_csv).to_excel("")
+merged = pd.merge(df, df_csv, how="inner")
+datos_extra = pd.DataFrame({"Restaurantes": [2], "Rutas": [5], "Alojamientos": [1], "Poblacion": [20]},index=[0])
+with pd.ExcelWriter("reporte.xlsx", engine="openpyxl") as writer:
+    merged.to_excel(writer, sheet_name="Hoja 1", index=False)
+    datos_extra.to_excel(writer, sheet_name="Hoja 2", index=False)
