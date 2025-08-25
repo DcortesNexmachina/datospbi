@@ -17,44 +17,16 @@ if os.path.exists(bbdd):
 else:
     hojas = {}
 datos = pd.concat(hojas.values(), ignore_index=True) if hojas else pd.DataFrame()
-apikey = '$2y$10$nrBoG48t1qYmOIIPTvnKRuKWqSNgNOdTxY4M1N23jXqUO2.4ScogO'
-def obtener_token(apikey):
-    url = f"https://publicevoapi.iqmenic.com/login/?apikey={apikey}"
-    response = requests.get(url)
-    if response.ok:
-        return response.json().get('token')
-    return None
-def obtener_datos_sensor(url):
-    response = requests.get(url)
-    if response.ok:
-        return response.json()
-    return None
-token = obtener_token(apikey)
-locations = {}
-dfs = []
-if token:
-    urls_datos_sensor = [f"https://publicevoapi.iqmenic.com/sensor/getSensor?token={token}&sensorid={sensor_id}" for sensor_id in sensores]
-    datos_sensores = [obtener_datos_sensor(url) for url in urls_datos_sensor]
-    for sensor_id, datos_sensor in zip(sensores, datos_sensores):
-        if datos_sensor:
-            ubi = (datos_sensor.get("data", {}).get("lat"), datos_sensor.get("data", {}).get("lon"))
-            locations[sensor_id] = ubi
-            propiedad_ids = [propiedad.get("propiedadid") for propiedad in datos_sensor.get("data", {}).get("propiedades", []) if propiedad.get("propiedadid") is not None]
-            for propiedad_id in propiedad_ids:
-                url_datos_completos = f"https://publicevoapi.iqmenic.com/sensor/getData?token={token}&sensorid={sensor_id}&propiedadid={propiedad_id}&intervalo=30"
-                datos_completos = obtener_datos_sensor(url_datos_completos)
-                if datos_completos:
-                    valores = datos_completos['data'][0]['valores']
-                    nombre_propiedad = datos_completos['data'][0]['nombre']
-                    df = pd.DataFrame(valores)
-                    df['Propiedad'] = nombre_propiedad
-                    df['Sensor'] = sensor_id
-                    dfs.append(df)
-                else:
-                    print(f"No se pudo obtener los datos de la propiedad {propiedad_id}.")
-        else:
-            print(f"No se pudo obtener datos para el sensor {sensor_id}.")
-datos1 = pd.concat(dfs, ignore_index=True).drop_duplicates()
+
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from iqmenic import IQmenic
+apikey = os.getenv("POLSMARTIN")
+async def dataframe(apikey):
+    async with IQmenic(apikey) as iqmenic:
+        df = await iqmenic.get_all()
+        return df
+datos1 = asyncio.run(dataframe(apikey)) 
 if not datos.empty:
     datos = datos[datos['Sensor'].notna()]
     datos1 = pd.concat([datos, datos1], ignore_index=True).drop_duplicates()
