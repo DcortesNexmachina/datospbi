@@ -9,14 +9,9 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from iqmenic import IQmenic
-
-apikey = 'bGFiZWuvrXN0ZW1hc2FkbWluOmFkbWluRVZPMjDaV66=='
-
-import asyncio
-from iqmenic import IQmenic
-
-apikey = 'bGFiZWuvrXN0ZW1hc2FkbWluOmFkbWluRVZPMjDaV66=='  # Tu API Key
-
+from dotenv import load_dotenv
+load_dotenv('/var/www/html/.env')
+apikey = os.getenv("HISPASATADMIN")
 async def dataframe(apikey):
     # Usar 'with' para manejar la sesión correctamente
     async with IQmenic(apikey) as iqmenic:
