@@ -22,7 +22,7 @@ def obtener_datos_sensor(url):
     return None
 
 def obtener_datos_completos(token, sensor_id, propiedad_id):
-    return obtener_datos_sensor(f"https://publicevoapi.iqmenic.com/sensor/getData?token={token}&sensorid={sensor_id}&propiedadid={propiedad_id}&intervalo=30")
+    return obtener_datos_sensor(f"https://publicevoapi.iqmenic.com/sensor/getData?token={token}&sensorid={sensor_id}&propiedadid={propiedad_id}&intervalo=10")
 
 token = obtener_token(apikey)
 bateriasensor = {}
@@ -57,7 +57,6 @@ alertas = []
 baterias_bajas = []
 sobrevoltajes = []
 fallos = []
-
 percentil5 = np.percentile(df[df['Propiedad'] == 'Voltaje']['valorrecibido'], 5)
 media_voltaje = df[df['Propiedad'] == 'Voltaje']['valorrecibido'].mean()
 percentil95 = np.percentile(df[df['Propiedad'] == 'Voltaje']['valorrecibido'], 95)
@@ -115,13 +114,13 @@ def plot_alerts_pie_chart(data, filename):
 
 def generate_charts(df):
     rssi_df = df[df['Propiedad'] == 'RSSI']
-    plot_rssi_quality(rssi_df, '/var/www/html/proyectos/siguenza/rssi_quality_pie_chart.png')
+    plot_rssi_quality(rssi_df, '/var/www/html/siguenza/rssi_quality_pie_chart.png')
     
     voltaje_df = df[df['Propiedad'] == 'Voltaje']
-    plot_voltage_histogram(voltaje_df, '/var/www/html/proyectos/siguenza/voltaje_histogram.png')
+    plot_voltage_histogram(voltaje_df, '/var/www/html/siguenza/voltaje_histogram.png')
     
     alert_df = df['alerta']
-    plot_alerts_pie_chart(alert_df, '/var/www/html/proyectos/siguenza/alertas_pie_chart.png')
+    plot_alerts_pie_chart(alert_df, '/var/www/html/siguenza/alertas_pie_chart.png')
 
 generate_charts(df)
 df = df[(df['Propiedad'] != 'Derecha a Izquierda') & (df['Propiedad'] != 'Izquierda a Derecha')]
@@ -217,6 +216,6 @@ html_content += f"""
 """
 
 # Guardar el contenido HTML en un archivo
-with open('/var/www/html/proyectos/siguenza/informe_alertas.html', 'w', encoding='utf-8') as file:
+with open('/var/www/html/siguenza/informe_alertas.html', 'w', encoding='utf-8') as file:
     file.write(html_content)
 
