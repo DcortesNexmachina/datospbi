@@ -1,58 +1,31 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import asyncio
 import numpy as np
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 import requests
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from iqmenic import IQmenic
 
 apikey = 'bGFiZWuvrXN0ZW1hc2FkbWluOmFkbWluRVZPMjDaV66=='
 
-def obtener_token(apikey):
-    url = f"https://publicevoapi.iqmenic.com/login/?apikey={apikey}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        token = response.json().get('token')
-        return token
-    return None
+import asyncio
+from iqmenic import IQmenic
 
-def obtener_datos_sensor(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    return None
+apikey = 'bGFiZWuvrXN0ZW1hc2FkbWluOmFkbWluRVZPMjDaV66=='  # Tu API Key
 
-def obtener_datos_completos(token, sensor_id, propiedad_id):
-    return obtener_datos_sensor(f"https://publicevoapi.iqmenic.com/sensor/getData?token={token}&sensorid={sensor_id}&propiedadid={propiedad_id}&intervalo=10")
+async def dataframe(apikey):
+    # Usar 'with' para manejar la sesión correctamente
+    async with IQmenic(apikey) as iqmenic:
+        # Capturamos el resultado de get_all()
+        df = await iqmenic.get_all()
+        return df  # Asegurarnos de devolver el DataFrame
 
-token = obtener_token(apikey)
-bateriasensor = {}
-
-if token:
-    url_sensor_id = f'https://publicevoapi.iqmenic.com/currentUser/getSensors?token={token}'
-    datos_sensor = obtener_datos_sensor(url_sensor_id)
-    data_sensor = datos_sensor.get("data", {})
-    
-    for i in range(len(data_sensor)):
-        nivel_bateria = data_sensor[i]['nivelbateria']
-        sensores_id = data_sensor[i]['id']
-        bateriasensor[sensores_id] = nivel_bateria
-        
-    sensor_id = 2945
-    for i in range(len(data_sensor)):
-        if str(data_sensor[i]['id']) == str(sensor_id):
-            propiedades = data_sensor[i]['propiedades']
-    
-    propiedad_ids = []
-    for k in range(len(propiedades)):
-        propiedad_ids.append(propiedades[k]['id'])
-    
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = {executor.submit(obtener_datos_completos, token, sensor_id, propiedad_id): propiedad_id for propiedad_id in propiedad_ids}
-        dfs = [pd.DataFrame(datos_completos['data'][0]['valores']).assign(Propiedad=datos_completos['data'][0]['nombre']) for future in futures if (datos_completos := future.result()) and 'data' in datos_completos]
-        
-        if dfs:
-            df = pd.concat(dfs, ignore_index=True)
-
+# Ejecutar el código asincrónicamente
+df = asyncio.run(dataframe(apikey))
 alertas = []
 baterias_bajas = []
 sobrevoltajes = []
@@ -146,8 +119,7 @@ html_content = """
     <h1>Informe de Estado de Sensores</h1>
     <h2>Sensor: Conteo de Personas</h2>
 """
-
-for propiedad in df['Propiedad'].unique():
+for propiedad in ['Batería', 'Voltaje']:
     sensor_data = df[df['Propiedad'] == propiedad]
     nombre_sensor = propiedad
     ultima_fecha = sensor_data['fecha'].max()
@@ -159,7 +131,7 @@ for propiedad in df['Propiedad'].unique():
 
     if ultimo_voltaje is None:
         estado_bateria = "Sin datos de voltaje"
-        accion_recomendada = "No se puede determinar el estado de la batería." if bateriasensor[sensor_id] is None else "Ninguna acción requerida."
+        accion_recomendada = "Ninguna acción requerida."
     else:
         if ultimo_voltaje < umbral_bateria_baja:
             estado_bateria = "Batería del sensor baja"
@@ -179,7 +151,6 @@ for propiedad in df['Propiedad'].unique():
         <tr><td>Ubicación</td><td>{ultima_ubicacion}</td></tr>
         <tr><td>Último valor recibido</td><td>{ultima_senal}</td></tr>
         <tr><td>Estado</td><td>{estado_bateria}</td></tr>
-        <tr><td>Nivel de Batería</td><td>{bateriasensor[sensor_id]}</td></tr>
         <tr><td>Acción recomendada</td><td><strong>{accion_recomendada}</strong></td></tr>
     </table>
     """
